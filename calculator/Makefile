@@ -1,22 +1,22 @@
 ##
 # Calculator
 #
-# @file
-# @version 0.1
 
-calculator: add.o calc.o mult.o sub.o
-		gcc -g -o calculator add.o calc.o mult.o sub.o
+SRCS = add.c calc.c mult.c sub.c
+OBJS = $(SRCS:.c=.o) #substitutes every .c with .o
+PROG = calculator
+CC = gcc
+CFLAGS = -g
+INSTALL_ROOT = /usr/local
 
-add.o: add.c numbers.h
-		gcc -g -c add.c
+$(PROG): $(OBJS)
+		$(CC) $(CFLAGS) -o $@ $^
 
-sub.o: sub.c numbers.h
-		gcc -g -c sub.c
+$(OBJS): numbers.h
 
-mult.o: mult.c numbers.h
-		gcc -g -c mult.c
+clean:
+		rm -f $(OBJS) $(PROG)
 
-calc.o: calc.c numbers.h
-		gcc -g -c calc.c
-
+install: $(PROG)
+		cp $(PROG) $(INSTALL_ROOT)/bin
 # end
