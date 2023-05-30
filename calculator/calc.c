@@ -1,14 +1,26 @@
+/**
+ * A very simple calculator for trying to explore GNU Make
+*/
 #include "numbers.h"
 #include <stdio.h>
+#include "unistd.h"
+
+#define SLEEP_TIME 3
 
 void calculator(void) {
     printf("Welcome to the calculator!\n");
-    do {
-        printf("Choose the operation, followed by the two operands");
+    sleep(SLEEP_TIME);
+    while (1) {
         printf("Operations are:\n");
-        printf("1: Sum\n2: Sub\n3: Mult");
+        printf("1: Sum\n2: Sub\n3: Mult\n-1: Exit\n");
         int op1, op2, operation;
+        printf("Operation number: ");
         scanf("%d", &operation);
+        if (operation == -1) {
+            printf("Bye bye!\n");
+            break;
+        }
+        printf("Operands: ");
         scanf("%d %d", &op1, &op2);
         switch (operation) {
             case 1:
@@ -22,8 +34,13 @@ void calculator(void) {
                 break;
             default:
                 printf("Invalid operation\n");
+                continue;
                 break;
         }
-        printf("If you want to exit, enter -1\n");
-    } while (getc(stdin) != -1);
+        sleep(SLEEP_TIME);
+    }
+}
+
+int main(void) {
+    calculator();
 }
